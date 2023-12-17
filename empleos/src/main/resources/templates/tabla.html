@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Listado de Vacantes</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+	<img th:src="@{/images/logo.png}" width="136" height="136"><!-- Relacionando imagen logo, se recomienda parar el proyecto y actualizar, antes de ejecutar -->
+	<h1 class="text-primary">Lista de Vacantes</h1>
+
+	<table class="table table-striped table-bordered table-hover">
+		<tr>
+			<th>Logo</th>
+			<th>Id</th>
+			<th>Nombre</th>
+			<th>Fecha de Pub</th>
+			<th>Salario Ofrecido</th>
+			<th>Descripcion</th>
+			<th>Destacada</th>
+			<th>Detalle</th>
+			<th>Borrar</th>
+			
+		</tr>
+		
+		<tr th:each="vacanTmp : ${vacantes}">
+			<td>
+				<img th:src="@{/images/{img} ( img=${vacanTmp.imagen} ) }" width="136" height="136" ><!-- Aplicando las Url relativa  al ContextPath en Thymeleaf, renderizando imagenes  -->
+			</td>
+			<td th:text="${vacanTmp.id}"></td>
+			<td th:text="${vacanTmp.nombre}"></td>
+			<td th:text="${vacanTmp.fecha}"></td>
+			<td th:text="${vacanTmp.salario}"></td>
+			<td th:text="${vacanTmp.descripcion}"></td>
+			<!--  
+			<td th:text="${vacanTmp.destacado}"></td>
+			
+			<td th:text="${vacanTmp.destacado == 1 ? 'Si' : 'No'}"></td><!-- Operador Elvis
+			  -->
+			<td>
+				 <span th:if="${vacanTmp.destacado==1}" class="badge bg-success">Si</span><!-- Aplicamos la condicion if y unless, y el elemento badge para el color 
+				 																					al "Si y No", tambien la clase success para el color verde y danger 
+				 																					para el color rojo --> 
+				 <span th:unless="${vacanTmp.destacado==1}" class="badge bg-danger">No</span>
+			</td>
+			<td>
+				<a th:href="@{/vacantes/view/{id} (id=${vacanTmp.id}) }" class="btn btn-success">Detalle</a><!-- Renderizando un Link. Aplicando clase de boostrap para convertir el link con un "Boton" -->
+			</td>
+			<td>
+				<a th:href="@{/vacantes/delete(id=${vacanTmp.id}) }" class="btn btn-danger">Borrar</a>
+			</td>
+		</tr>
+	</table>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
