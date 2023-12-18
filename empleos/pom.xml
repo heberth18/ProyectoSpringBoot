@@ -14,7 +14,7 @@
 	<name>empleos</name>
 	<description>Aplicacion para publicar ofertas de trabajo</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8.0</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
