@@ -16,14 +16,14 @@ import net.icaripa.model.Categoria;
 import net.icaripa.service.CategoriasServiceImpl;
 
 @Controller
-@RequestMapping(value="/categorias")//Anotación @RequestMapping a nivel de clase
+@RequestMapping(value="/categorias")
 public class CategoriasController {
 	
 	@Autowired
 	private CategoriasServiceImpl serviceCategorias;
 
 	//GetMapping("/index")
-	@RequestMapping(value="/index", method=RequestMethod.GET)//Anotación @RequestMapping a nivel de metodo
+	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String mostrarIndex(Model model) {
 		List<Categoria> lista = serviceCategorias.buscarTodas();
 		System.out.println("Categorias: " + lista);
@@ -51,11 +51,4 @@ public class CategoriasController {
 		return "redirect:/categorias/index";
 	}
 	
-	/*//PostMapping("/save")
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion){//Los parametros de @RequestPram deben coincidir con los del input
-		System.out.println("Categoria: " + nombre);
-		System.out.println("Descripcion: " + descripcion);
-		return "categorias/listCategorias";
-	}*/
 }
