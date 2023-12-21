@@ -47,7 +47,7 @@
       <div class="container"> 
         <h2 class="font-weight-bold text-center text-capitalize">DESTACADOS</h2>
         <hr>
-        <div class="row" th:each="vacante : ${vacantes}"><!-- Recorre el div con la variable temporal al atributo Model en mostrarhome -->
+        <div class="row" th:each="vacante : ${vacantes}">
           <div class="col-md-3">            
             <img class="rounded mx-auto d-block" th:src="@{/images/{img} (img=${vacante.imagen} ) }" alt="Generic placeholder image" width="220" height="220">            
           </div>

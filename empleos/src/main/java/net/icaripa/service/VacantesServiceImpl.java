@@ -1,5 +1,5 @@
 package net.icaripa.service;
-//Logica de negocio
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -12,14 +12,14 @@ import net.icaripa.model.Vacante;
 @Service
 public class VacantesServiceImpl implements IVacantesService {
 	
-	private List<Vacante> lista = null;//Se declara el atributo a nivel de la clase
+	private List<Vacante> lista = null;
 	
 	public VacantesServiceImpl() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		lista = new LinkedList<Vacante>();
 		try {
-			// Creamos la oferta de trabajo 1
+			
 			Vacante vacante1 = new Vacante();
 			vacante1.setId(1);
 			vacante1.setNombre("Ingeniero Civil");
@@ -30,7 +30,7 @@ public class VacantesServiceImpl implements IVacantesService {
 			vacante1.setImagen("empresa1.png");
 			vacante1.setEstatus("Aprobada");
 			
-			// Creamos la oferta de trabajo 2
+			
 			Vacante vacante2 = new Vacante();
 			vacante2.setId(2);
 			vacante2.setNombre("Contador Publico");
@@ -41,7 +41,7 @@ public class VacantesServiceImpl implements IVacantesService {
 			vacante2.setImagen("empresa2.png");
 			vacante2.setEstatus("Creada");
 			
-			// Creamos la oferta de trabajo 3
+			
 			Vacante vacante3 = new Vacante();
 			vacante3.setId(3);
 			vacante3.setNombre("Ingeniero Electrico");
@@ -52,7 +52,7 @@ public class VacantesServiceImpl implements IVacantesService {
 			vacante3.setEstatus("Aprobada");
 			
 			
-			// Creamos la oferta de trabajo 4
+			
 			Vacante vacante4 = new Vacante();
 			vacante4.setId(4);
 			vacante4.setNombre("Diseñador Grafico");
@@ -63,9 +63,7 @@ public class VacantesServiceImpl implements IVacantesService {
 			vacante4.setImagen("empresa3.png");
 			vacante4.setEstatus("Eliminada");
 			
-			/**
-			 * Agregamos lo 4 objeto de tipo Vacante a la lista...
-			 */
+			
 			lista.add(vacante1);
 			lista.add(vacante2);
 			lista.add(vacante3);
@@ -93,7 +91,7 @@ public class VacantesServiceImpl implements IVacantesService {
 	}
 
 	@Override
-	public void guardar(Vacante vacante) {//implementando metodo guardar
+	public void guardar(Vacante vacante) {
 		lista.add(vacante);
 	}
 	

@@ -30,7 +30,7 @@ import net.icaripa.util.Utileria;
 @RequestMapping("/vacantes")
 public class VacantesController {
 	
-	@Value("${empleosapp.ruta.imagenes}")//se realiza a nivel de la clase para utilizarla en en metodo "guardar"
+	@Value("${empleosapp.ruta.imagenes}")
 	private String ruta;
 	
 	@Autowired
@@ -49,15 +49,15 @@ public class VacantesController {
 	
 	@GetMapping("/create")
 	public String crear(Vacante vacante, Model model) {
-		model.addAttribute("categorias", serviceCategorias.buscarTodas());//Se le pasan datos al modelo para mostrarlo en la vista formVacante
+		model.addAttribute("categorias", serviceCategorias.buscarTodas());
 		return "vacantes/formVacante";
 	}
 	
-	@PostMapping("/save")//Configurando el Data Binding, declarando un parametro del tipo del modelo
+	@PostMapping("/save")
 	public String guardar(Vacante vacante, BindingResult result, RedirectAttributes attributes, 
-			@RequestParam("archivoImagen") MultipartFile multiPart) {//Se agrega BindingResult result para mostrar errores y RedirectAttributes para mostrar msj
-		if(result.hasErrors()) {//En caso de ocurrir errores, enviar el formulario
-			for (ObjectError error: result.getAllErrors()) {//Es opcional, es para ver los errores en consola
+			@RequestParam("archivoImagen") MultipartFile multiPart) {
+		if(result.hasErrors()) {
+			for (ObjectError error: result.getAllErrors()) {
 				System.out.println("Ocurrio un error: "+ error.getDefaultMessage());
 			}
 			return "vacantes/formVacante";
@@ -67,49 +67,42 @@ public class VacantesController {
 			//String ruta = "/empleos/img-vacantes/"; // Linux/MAC
 			//String ruta = "c:/empleos/img-vacantes/"; // Windows
 			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
-			if (nombreImagen != null){ // La imagen si se subio
-				// Procesamos la variable nombreImagen
+			if (nombreImagen != null){
+				
 				vacante.setImagen(nombreImagen);
 			}
 		}
 		
-		serviceVacantes.guardar(vacante);//Se agrega la clase servicio para llamar al metodo guardar
-		attributes.addFlashAttribute("msg", "Registro Guardado");//Se muestra mjs al usuario con addFlashAttribute
+		serviceVacantes.guardar(vacante);
+		attributes.addFlashAttribute("msg", "Registro Guardado");
 		System.out.println("Vacante: " + vacante);
-		return "redirect:/vacantes/index";//Se redirecciona una peticion Get a la Url vacantes/index
+		return "redirect:/vacantes/index";
 	}
 	
-	/*@PostMapping("/save")
-	public String guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion,
-						@RequestParam("estatus") String estatus, @RequestParam("fecha") String fecha, 
-						@RequestParam("destacado") int destacado,@RequestParam("salario") double salario, 
-						@RequestParam("detalles") String detalle)  {
-		return "vacantes/listVacantes";
-	}*/
-	
-	@GetMapping("/delete")//Se realiza la peticion directamente en al Url con "?"
+
+	@GetMapping("/delete")
 	public String eliminar(@RequestParam("id") int idVacante, Model model) {
 		model.addAttribute("id", idVacante);
-		System.out.println("Borrando vacante con id: " + idVacante);// Imprime en consola
+		System.out.println("Borrando vacante con id: " + idVacante);
 		
 		return "mensaje";
 	}
 	
-	@GetMapping("/view/{id}")//Creando Url Dinamicas(cambiantes)
-	public String verDetalles(@PathVariable("id") int idVacante, Model model) {//Se le pasa el valor contenido en {id} al parametro idVacante
+	@GetMapping("/view/{id}")
+	public String verDetalles(@PathVariable("id") int idVacante, Model model) {
 		
 		Vacante vacante = serviceVacantes.buscarPorId(idVacante);
 		
 		System.out.println("vacante: " + vacante);	
 		model.addAttribute("vacante", vacante);
 		
-		//Buscar los detalles de la vacante en la BD...
 		
-		return "detalle";//Retorna el nombre de una vista, la cual tiene que estar almacenada en el directorio "vacantes" todo en templates
+		
+		return "detalle";
 	}
 	
 	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder) {//Se usa este metodo para recibir fecha de un formulario sin problemas
+	public void initBinder(WebDataBinder webDataBinder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}

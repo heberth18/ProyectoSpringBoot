@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import net.icaripa.model.Vacante;
 import net.icaripa.service.IVacantesService;
 
-//Logica de procesamiento de las peticiones Http
 @Controller
 public class HomeController {
 	
 	@Autowired
-	private IVacantesService serviceVacantes;//Se le inyectan los metodos a la variable serviceVacantes para poder utilizarlos
+	private IVacantesService serviceVacantes;
 	
 	@GetMapping("/tabla")
 	public String mostrarTabla(Model model) {
@@ -42,7 +41,7 @@ public class HomeController {
 		return "detalle";
 	}
 	
-	@GetMapping("/listado")//Renderizando en una vista un elemento de tipo "List" utilizando thymeleaf
+	@GetMapping("/listado")
 	public String mostrarListado(Model model) {
 		List<String> lista = new LinkedList<String>();
 		lista.add("Ingeniero de Sistemas");
@@ -55,7 +54,7 @@ public class HomeController {
 		return "listado"; 
 	}
 	
-	@GetMapping("/")//Es el directorio raiz de toda la app
+	@GetMapping("/")
 	public String mostrarHome(Model model){
 		List<Vacante> lista = serviceVacantes.buscarTodas();
 		model.addAttribute("vacantes", lista);

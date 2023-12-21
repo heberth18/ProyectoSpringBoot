@@ -1,5 +1,4 @@
 package net.icaripa.model;
-//Las clases de modelo deben tener atributos, getters and setters
 
 import java.lang.annotation.Retention;
 import java.text.ParseException;
@@ -18,7 +17,7 @@ public class Vacante {
 	private Date fecha;
 	private Double salario;
 	private Integer destacado;
-	private String imagen="no-image.png";/*Si a un objeto de tipo vacante no se le asigna una imagen,la variable "imagen" va a tener "no-image" por defecto*/
+	private String imagen="no-image.png";
 	private String estatus;
 	private String detalle;
 	private Categoria categoria;
